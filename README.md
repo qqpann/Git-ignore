@@ -1,7 +1,7 @@
 Git-ignore
 ===
 
-A cli helper that initiates `.gitignore` file from template.
+**A cli helper that initiates `.gitignore` from template.** | **[日本語記事](http://qiugits.hatenablog.com/entry/2018/09/20/024218)**
 
 
 ## Install
