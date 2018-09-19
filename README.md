@@ -31,6 +31,7 @@ Thus it supports:
 - [x] Based on GitHub's templates collection.
 - [ ] Support "Global (operating system or editor specific) templates".
 - [ ] Helpful `--help` option.
+- [ ] User defined template.
 - [ ] Detect git base directry to place `.gitignore`.
 - [ ] Autofill suggestion.
 
