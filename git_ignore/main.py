@@ -1,4 +1,5 @@
 import os
+import textwrap as tw
 
 import click
 import pkg_resources
@@ -21,8 +22,10 @@ class Template:
                 self.TEMPLATE_DICT[n[:-10].lower()] = n[:-10]
 
     def print_available(self):
-        print('Supported templates:')
-        print(*self.TEMPLATE_DICT.values(), sep=', ')
+        click.echo(click.style('[Hint]', fg='yellow') +
+                   ' Supported templates:\n')
+        supported = ', '.join(sorted(self.TEMPLATE_DICT.values()))
+        click.echo(tw.indent(tw.fill(supported), '\t'))
 
     def write_template(self, arg):
         resource_package = __name__
@@ -44,26 +47,30 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 @click.version_option(version=__version__)
 def main(show, args):
     '''
+    Create .gitignore from template.
+
     Specify the language etc, whose template you want to use, in ARGS.
     You can specify multiple ARGS at once.
 
+    \b
     Example usage:
-
         $ git-ignore python sass
-
         This will create .gitignore from both templates of Python ans Sass.
 
+    \b
     Show supported ARGS:
-
-        $ git-ignore
-
-        or
-
         $ git-ignore --show
+        or
+        $ git-ignore
     '''
     tem = Template()
 
-    if show or not args:
+    if show:
+        tem.print_available()
+        return
+    elif not args:
+        click.echo(click.style(
+            'Arguments(ARGS) are required, but not found.\n', fg='red', bold=True))
         tem.print_available()
         return
 
@@ -78,9 +85,18 @@ def main(show, args):
             nomatch.append(arg)
 
     if matched:
-        print('Added .gitignore from template for:', ', '.join(matched))
+        click.echo(click.style('[Success]', fg='green') +
+                   ' Added .gitignore from template for:\n')
+        added = ', '.join(matched)
+        click.echo(click.style(tw.indent(tw.fill(added), '\t'), fg='green'))
+        click.echo()
     if nomatch:
-        print(nomatch, 'not found.')
+        click.echo(click.style('[Error]', fg='red') +
+                   ' Following templates not found:\n')
+        notfound = ', '.join(nomatch)
+        click.echo(click.style(tw.indent(tw.fill(notfound), '\t'), fg='red'))
+        click.echo()
+
         tem.print_available()
 
 
