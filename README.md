@@ -30,10 +30,9 @@ Thus it supports:
 - [x] Can add multiple templates at once.
 - [x] Based on GitHub's templates collection.
 - [ ] Support "Global (operating system or editor specific) templates".
-- [ ] Helpful `--help` option.
+- [x] Helpful `--help` option.
 - [ ] User defined template.
 - [ ] Detect git base directry to place `.gitignore`.
-- [ ] Autofill suggestion.
 
 ## Contributing
 Please feel free to open an issue or PR.
