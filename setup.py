@@ -1,6 +1,9 @@
+import re
+
 from setuptools import find_packages, setup
 
-VERSION = '0.1'
+with open('git_ignore/__init__.py', 'rt', encoding='utf8') as f:
+    VERSION = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
 
 
 setup(
@@ -13,6 +16,10 @@ setup(
     license='MIT',
     keywords='git gitignore template default',
     packages=find_packages(),
+    package_data={
+        'git_ignore': ['template/*.gitignore'],
+    },
+    # include_package_data=True,
     install_requires=["click >= 6.7"],
     # scripts = ['directory/__main__.py'],
     entry_points={'console_scripts': 'git-ignore = git_ignore:main'},
