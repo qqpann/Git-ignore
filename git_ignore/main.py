@@ -3,6 +3,8 @@ import os
 import click
 import pkg_resources
 
+from .__version__ import __version__
+
 
 class Template:
     def __init__(self):
@@ -35,6 +37,7 @@ class Template:
 
 @click.command()
 @click.argument('args', nargs=-1)
+@click.version_option(version=__version__)
 def main(args):
     tem = Template()
 

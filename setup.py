@@ -2,7 +2,7 @@ import re
 
 from setuptools import find_packages, setup
 
-with open('git_ignore/__init__.py', 'rt', encoding='utf8') as f:
+with open('git_ignore/__version__.py', 'rt', encoding='utf8') as f:
     VERSION = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
 
 

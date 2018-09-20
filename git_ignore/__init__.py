@@ -1,7 +1,8 @@
 import sys
 
+from .__version__ import __version__
+
 name = "git-ignore"
-__version__ = '0.2'
 
 
 def main():
