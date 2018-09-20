@@ -7,7 +7,27 @@ import pkg_resources
 from .__version__ import __version__
 
 
+def echo_status(status, title, text, use_default_color=False):
+    status_color = {
+        'Success': 'green',
+        'Error': 'red',
+        'Hint': 'yellow',
+    }
+    if status not in status_color.keys():
+        raise Exception('Wrong status code')
+    color = status_color[status]
+    text_color = None if use_default_color else color
+
+    click.echo(click.style(f'[{status}]', fg=color) + f' {title}\n')
+    if text:
+        click.echo(
+            click.style(tw.indent(tw.fill(text), '\t'), fg=text_color) + '\n'
+        )
+
+
 class Template:
+    '''Functions related to manipulating template'''
+
     def __init__(self):
         self.TEMPLATE_DICT = dict()
 
@@ -22,10 +42,10 @@ class Template:
                 self.TEMPLATE_DICT[n[:-10].lower()] = n[:-10]
 
     def print_available(self):
-        click.echo(click.style('[Hint]', fg='yellow') +
-                   ' Supported templates:\n')
-        supported = ', '.join(sorted(self.TEMPLATE_DICT.values()))
-        click.echo(tw.indent(tw.fill(supported), '\t'))
+        echo_status(
+            'Hint', 'Supported templates:',
+            ', '.join(sorted(self.TEMPLATE_DICT.values())),
+            use_default_color=True)
 
     def write_template(self, arg):
         resource_package = __name__
@@ -69,8 +89,7 @@ def main(show, args):
         tem.print_available()
         return
     elif not args:
-        click.echo(click.style(
-            'Arguments(ARGS) are required, but not found.\n', fg='red', bold=True))
+        echo_status('Error', 'Arguments(ARGS) are required, but not found.', '')
         tem.print_available()
         return
 
@@ -85,18 +104,11 @@ def main(show, args):
             nomatch.append(arg)
 
     if matched:
-        click.echo(click.style('[Success]', fg='green') +
-                   ' Added .gitignore from template for:\n')
-        added = ', '.join(matched)
-        click.echo(click.style(tw.indent(tw.fill(added), '\t'), fg='green'))
-        click.echo()
+        echo_status(
+            'Success', 'Added .gitignore from template for:', ', '.join(matched))
     if nomatch:
-        click.echo(click.style('[Error]', fg='red') +
-                   ' Following templates not found:\n')
-        notfound = ', '.join(nomatch)
-        click.echo(click.style(tw.indent(tw.fill(notfound), '\t'), fg='red'))
-        click.echo()
-
+        echo_status(
+            'Error', 'Following templates not found:', ', '.join(nomatch))
         tem.print_available()
 
 
