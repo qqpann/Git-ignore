@@ -2,6 +2,9 @@ import re
 
 from setuptools import find_packages, setup
 
+with open('README.md', 'rt', encoding='utf8') as f:
+    readme = f.read()
+
 with open('git_ignore/__version__.py', 'rt', encoding='utf8') as f:
     VERSION = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
 
@@ -9,12 +12,13 @@ with open('git_ignore/__version__.py', 'rt', encoding='utf8') as f:
 setup(
     name='git-ignore',
     version=VERSION,
-    description='Git ignore template helper',
     url='https://github.com/hanpannet/Git-ignore',
     author='Qiushi Pan',
     author_email='ice.gitshell@gmail.com',
     license='MIT',
     keywords='git gitignore template default',
+    description='Git ignore template helper',
+    long_description=readme,
     packages=find_packages(),
     package_data={
         'git_ignore': ['template/*.gitignore'],
