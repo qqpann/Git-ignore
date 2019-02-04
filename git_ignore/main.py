@@ -62,10 +62,10 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
-@click.option('--show', '-s', is_flag=True, help='Show supported ARGS and exit.')
+@click.option('--list', '-l', '_list', is_flag=True, help='List supported ARGS and exit.')
 @click.argument('args', nargs=-1)
 @click.version_option(version=__version__)
-def main(show, args):
+def main(_list, args):
     '''
     Create .gitignore from template.
 
@@ -78,14 +78,14 @@ def main(show, args):
         This will create .gitignore from both templates of Python ans Sass.
 
     \b
-    Show supported ARGS:
-        $ git-ignore --show
+    List supported ARGS:
+        $ git-ignore --list
         or
         $ git-ignore
     '''
     tem = Template()
 
-    if show:
+    if _list:
         tem.print_available()
         return
     elif not args:
