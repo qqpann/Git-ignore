@@ -30,6 +30,7 @@ class Template:
 
     def __init__(self, to_stdout=False, no_custom=False):
         self.to_stdout = to_stdout
+        self.no_custom = no_custom
         self.CUSTOM_DIR = os.path.expanduser('~/.gitignore_templates/')
         self.TEMPLATE_DICT = dict()
         self.CUSTOM_TEMPLATE_DICT = dict()
@@ -53,6 +54,11 @@ class Template:
             'Hint', 'Supported templates:',
             ', '.join(sorted(self.TEMPLATE_DICT.values())),
             use_default_color=True)
+        if not self.no_custom and self.CUSTOM_TEMPLATE_DICT:
+            echo_status(
+                'Hint', 'Your custom templates:',
+                ', '.join(sorted(self.CUSTOM_TEMPLATE_DICT.values())),
+                use_default_color=True)
 
     def get_template_str(self, arg):
         resource_package = __name__
@@ -142,6 +148,11 @@ def main(list_up, add, no_custom, to_stdout, args):
         or
         $ git-ignore -a !.keep !.gitkeep
         This will add !.keep and !.gitkeep as new lines to your .gitignore
+
+    \b
+    Output to stdout if you want to:
+        $ git-ignore --stdout python >> .gitignore
+        You don\'t need to, but you can do this to use more freely.
     '''
     template = Template(to_stdout, no_custom)
 
