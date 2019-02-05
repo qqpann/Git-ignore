@@ -27,6 +27,7 @@ setup(
     install_requires=["click >= 6.7"],
     # scripts = ['directory/__main__.py'],
     entry_points={'console_scripts': 'git-ignore = git_ignore:main'},
+    test_suite='tests',
     classifiers=[
         'Environment :: Console',
         'Intended Audience :: Developers',
