@@ -16,9 +16,10 @@ setup(
     author='Qiushi Pan',
     author_email='ice.gitshell@gmail.com',
     license='MIT',
-    keywords='git gitignore template default',
-    description='Git ignore template helper',
+    keywords='git gitignore file template default',
+    description='.gitignore Template Generator',
     long_description=readme,
+    long_description_content_type='text/markdown',
     packages=find_packages(),
     package_data={
         'git_ignore': ['template/*.gitignore'],
