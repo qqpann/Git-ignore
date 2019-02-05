@@ -50,15 +50,24 @@ class Template:
                 self.TEMPLATE_DICT[n[:-10].lower()] = n[:-10]
 
     def print_available(self):
+        if not self.no_custom:
+            if self.CUSTOM_TEMPLATE_DICT:
+                echo_status(
+                    'Hint', 'Your custom templates:',
+                    ', '.join(sorted(self.CUSTOM_TEMPLATE_DICT.values())),
+                    use_default_color=True)
+            else:
+                echo_status(
+                    'Hint', 'Your custom templates:',
+                    ('Not found. You can add custom templates by adding to '
+                     '~/.gitignore_templates/some_name.gitignore '
+                     'And use it with '
+                     '$git-ignore some_name'),
+                    use_default_color=True)
         echo_status(
             'Hint', 'Supported templates:',
             ', '.join(sorted(self.TEMPLATE_DICT.values())),
             use_default_color=True)
-        if not self.no_custom and self.CUSTOM_TEMPLATE_DICT:
-            echo_status(
-                'Hint', 'Your custom templates:',
-                ', '.join(sorted(self.CUSTOM_TEMPLATE_DICT.values())),
-                use_default_color=True)
 
     def get_template_str(self, arg):
         resource_package = __name__
