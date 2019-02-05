@@ -96,6 +96,8 @@ class Template:
             else:
                 nomatch.append(arg)
 
+        if self.to_stdout:
+            return
         if matched:
             echo_status(
                 'Success', 'Added .gitignore from template for:', ', '.join(matched))
