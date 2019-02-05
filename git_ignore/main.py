@@ -57,6 +57,25 @@ class Template:
         with open('.gitignore', 'a+') as fout:
             fout.write(template.decode())
 
+    def proceed_args(self, args):
+        nomatch = list()
+        matched = list()
+        for arg in args:
+            arg = arg.lower()
+            if arg in self.TEMPLATE_DICT:
+                self.write_template(arg)
+                matched.append(arg)
+            else:
+                nomatch.append(arg)
+
+        if matched:
+            echo_status(
+                'Success', 'Added .gitignore from template for:', ', '.join(matched))
+        if nomatch:
+            echo_status(
+                'Error', 'Following templates not found:', ', '.join(nomatch))
+            self.print_available()
+
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -93,23 +112,7 @@ def main(_list, args):
         tem.print_available()
         return
 
-    nomatch = list()
-    matched = list()
-    for arg in args:
-        arg = arg.lower()
-        if arg in tem.TEMPLATE_DICT:
-            tem.write_template(arg)
-            matched.append(arg)
-        else:
-            nomatch.append(arg)
-
-    if matched:
-        echo_status(
-            'Success', 'Added .gitignore from template for:', ', '.join(matched))
-    if nomatch:
-        echo_status(
-            'Error', 'Following templates not found:', ', '.join(nomatch))
-        tem.print_available()
+    tem.proceed_args(args)
 
 
 if __name__ == '__main__':
