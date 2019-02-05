@@ -111,7 +111,7 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
-@click.option('--list', '-l', 'list_up', is_flag=True, help='List supported ARGS and exit.')
+@click.option('--list', '-l', 'list_up', is_flag=True, help='List up supported ARGS and exit.')
 @click.option('--add', '-a', 'add', is_flag=True, help='Add args as new lines to .gitignore.')
 @click.option('--no-custom', 'no_custom', is_flag=True, help='Do not use custom .gitignore_template/ folder.')
 @click.option('--stdout', 'to_stdout', is_flag=True, help='Output to STDOUT.')
@@ -130,10 +130,18 @@ def main(list_up, add, no_custom, to_stdout, args):
         This will create .gitignore from both templates of Python ans Sass.
 
     \b
-    List supported ARGS:
+    List up supported ARGS:
         $ git-ignore --list
         or
         $ git-ignore
+
+    \b
+    Add new lines as you wish:
+        $ git-ignore --add .gitignore
+        This will add .gitignore to your .gitignore file.
+        or
+        $ git-ignore -a !.keep !.gitkeep
+        This will add !.keep and !.gitkeep as new lines to your .gitignore
     '''
     template = Template(to_stdout, no_custom)
 
