@@ -44,23 +44,23 @@ class TemplateTests(unittest.TestCase):
 
     def test_custom_template_dir(self):
         some_name = 'some_name_that_dont_exist'
-        with EvacuateCustomTemplatesDir():
-            with self.runner.isolated_filesystem():
-                # Test if there is no custom template defined
-                self.assertFalse('.gitignore' in os.listdir())
+        with EvacuateCustomTemplatesDir(), \
+                self.runner.isolated_filesystem():
+            # Test if there is no custom template defined
+            self.assertFalse('.gitignore' in os.listdir())
 
-                self.runner.invoke(cli, [some_name])
+            self.runner.invoke(cli, [some_name])
 
-                self.assertFalse('.gitignore' in os.listdir())
+            self.assertFalse('.gitignore' in os.listdir())
 
-                # Define custom template
-                CUSTOM_DIR = os.path.expanduser('~/.gitignore_templates/')
-                os.makedirs(CUSTOM_DIR)
-                with open(CUSTOM_DIR + some_name + '.gitignore', 'w') as f:
-                    f.write('foobar')
+            # Define custom template
+            CUSTOM_DIR = os.path.expanduser('~/.gitignore_templates/')
+            os.makedirs(CUSTOM_DIR)
+            with open(CUSTOM_DIR + some_name + '.gitignore', 'w') as f:
+                f.write('foobar')
 
-                self.runner.invoke(cli, [some_name])
+            self.runner.invoke(cli, [some_name])
 
-                self.assertTrue('.gitignore' in os.listdir())
-                with open('.gitignore', 'r') as f:
-                    self.assertEqual('foobar', f.read())
+            self.assertTrue('.gitignore' in os.listdir())
+            with open('.gitignore', 'r') as f:
+                self.assertEqual('foobar', f.read())
