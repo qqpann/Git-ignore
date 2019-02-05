@@ -1,6 +1,7 @@
 import os
 import shutil
 import unittest
+from test.support import captured_stdout
 
 from click.testing import CliRunner
 
@@ -64,3 +65,33 @@ class TemplateTests(unittest.TestCase):
             self.assertTrue('.gitignore' in os.listdir())
             with open('.gitignore', 'r') as f:
                 self.assertEqual('foobar', f.read())
+
+    def test_stdout_add__contains_no_garbage(self):
+        some_name = 'some_name_that_dont_exist'
+        with EvacuateCustomTemplatesDir(), \
+                self.runner.isolated_filesystem():
+            # Define custom template
+            CUSTOM_DIR = os.path.expanduser('~/.gitignore_templates/')
+            os.makedirs(CUSTOM_DIR)
+            with open(CUSTOM_DIR + some_name + '.gitignore', 'w') as f:
+                f.write('foobar')
+
+            result = self.runner.invoke(cli, ['--stdout', '-a', 'foobar'])
+            stdout_str = result.output
+
+            self.assertEqual(stdout_str, 'foobar\n')
+
+    def test_stdout__contains_no_garbage(self):
+        some_name = 'some_name_that_dont_exist'
+        with EvacuateCustomTemplatesDir(), \
+                self.runner.isolated_filesystem():
+            # Define custom template
+            CUSTOM_DIR = os.path.expanduser('~/.gitignore_templates/')
+            os.makedirs(CUSTOM_DIR)
+            with open(CUSTOM_DIR + some_name + '.gitignore', 'w') as f:
+                f.write('foobar')
+
+            result = self.runner.invoke(cli, ['--stdout', some_name])
+            stdout_str = result.output
+
+            self.assertEqual(stdout_str, 'foobar\n')
