@@ -47,13 +47,16 @@ class Template:
             ', '.join(sorted(self.TEMPLATE_DICT.values())),
             use_default_color=True)
 
-    def write_template(self, arg):
+    def get_template_str(self, arg):
         resource_package = __name__
         resource_path = 'template/{}.gitignore'.format(
             self.TEMPLATE_DICT[arg])
         template = pkg_resources.resource_string(
             resource_package, resource_path)
+        return template.decode()
 
+    def write_template(self, arg):
+        template = self.get_template_str(arg)
         with open('.gitignore', 'a+') as fout:
             fout.write(template.decode())
 
