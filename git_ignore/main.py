@@ -34,7 +34,7 @@ class Template:
         self.TEMPLATE_DICT = dict()
         self.CUSTOM_TEMPLATE_DICT = dict()
 
-        if not no_custom:
+        if not no_custom and os.path.exists(self.CUSTOM_DIR):
             custom_lst = os.listdir(self.CUSTOM_DIR)
             self.CUSTOM_TEMPLATE_DICT = {
                 n[:-10].lower(): n[:-10] for n in custom_lst}
