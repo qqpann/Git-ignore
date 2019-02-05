@@ -109,13 +109,13 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
-@click.option('--list', '-l', '_list', is_flag=True, help='List supported ARGS and exit.')
+@click.option('--list', '-l', 'list_up', is_flag=True, help='List supported ARGS and exit.')
 @click.option('--add', '-a', 'add', is_flag=True, help='Add args as new lines to .gitignore.')
 @click.option('--no-custom', 'no_custom', is_flag=True, help='Do not use custom .gitignore_template/ folder.')
 @click.option('--stdout', 'to_stdout', is_flag=True, help='Output to STDOUT.')
 @click.argument('args', nargs=-1)
 @click.version_option(version=__version__)
-def main(_list, add, no_custom, to_stdout, args):
+def main(list_up, add, no_custom, to_stdout, args):
     '''
     Create .gitignore from template.
 
@@ -135,7 +135,7 @@ def main(_list, add, no_custom, to_stdout, args):
     '''
     template = Template(to_stdout, no_custom)
 
-    if _list:
+    if list_up:
         template.print_available()
         return
     if add:
