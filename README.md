@@ -32,6 +32,8 @@ This will add two lines on the bottom of your `.gitignore` file.
 
 #### Example: Use custom templates.
 ```
+$ mkdir ~/.gitignore_templates
+$ echo '.DS_Store' > ~/.gitignore_templates/macOS.gitignore
 $ git-ignore macOS
 ```
 Running this, the command will look up at `~/.gitignore_templates/`,
@@ -51,12 +53,12 @@ Thus it supports:
 > Perl6, Sass, Scala, Joomla, CakePHP, Go, Yeoman, ZendFramework, KiCad, Textpattern, ExpressionEngine, Typo3, Packer, Elisp, EPiServer, Gcov, Haskell, GWT, LabVIEW, C++, Objective-C, Composer, SketchUp, Eagle, Android, Symfony, ExtJs, Erlang, Finale, Sdcc, Scrivener, Qooxdoo, RhodesRhomobile, PlayFramework, Stella, SugarCRM, Delphi, TurboGears2, Waf, Leiningen, Dart, R, ChefCookbook, MetaProgrammingSystem, CFWheels, Lilypond, Processing, Kohana, Clojure, GitBook, Lithium, Magento, Node, Python, Nim, Terraform, Yii, Nanoc, Umbraco, DM, Java, Elixir, WordPress, Godot, Xojo, ArchLinuxPackages, Jekyll, Ada, D, Elm, Actionscript, Swift, Grails, Laravel, Perl, CMake, VVVV, VisualStudio, CraftCMS, Coq, Rust, Scheme, IGORPro, Drupal, Plone, AppEngine, Mercury, Jboss, Lua, PureScript, CUDA, AppceleratorTitanium, Concrete5, CodeIgniter, Fortran, Julia, ForceDotCom, OracleForms, Smalltalk, Rails, Phalcon, Prestashop, Agda, Unity, FuelPHP, LemonStand, SeamGen, SCons, SymphonyCMS, CommonLisp, Gradle, Maven, Ruby, OpenCart, Fancy, TeX, Zephir, OCaml, UnrealEngine, Autotools, C, Kotlin, Qt, ROS, Idris, Opa
 
 ## Features
-- [x] Add `.gitignore` from templates.
-- [x] Can add multiple templates at once.
-- [x] Based on GitHub's templates collection.
-- [x] Support "Global (operating system or editor specific) templates".
-- [x] Helpful `--help` option.
-- [x] User defined template.
+- ✔︎ Add `.gitignore` from templates.
+- ✔︎ Can add multiple templates at once.
+- ✔︎ Based on GitHub's templates collection.
+- ✔︎ Support "Global (operating system or editor specific) templates".
+- ✔︎ Helpful `--help` option.
+- ✔︎ User defined template.
 
 ## Contributing
 Issues and PRs are welcome :)
