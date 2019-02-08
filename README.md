@@ -32,6 +32,8 @@ This will add two lines on the bottom of your `.gitignore` file.
 
 #### Example: Use custom templates.
 ```
+$ mkdir ~/.gitignore_templates
+$ echo '.DS_Store' > ~/.gitignore_templates/macOS.gitignore
 $ git-ignore macOS
 ```
 Running this, the command will look up at `~/.gitignore_templates/`,
