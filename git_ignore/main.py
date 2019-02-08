@@ -93,7 +93,7 @@ class Template:
 
     def proceed_addition(self, args):
         file_str = '\n'.join(args)
-        self.write_template(file_str)
+        self.write_template('\n' + file_str + '\n')
 
     def proceed_args(self, args):
         nomatch = list()
