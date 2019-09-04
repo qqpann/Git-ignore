@@ -18,7 +18,7 @@ def echo_status(status, title, text, use_default_color=False):
     color = status_color[status]
     text_color = None if use_default_color else color
 
-    click.echo(click.style(f'[{status}]', fg=color) + f' {title}\n')
+    click.echo(click.style('[{}]'.format(status), fg=color) + ' {}\n'.format(title))
     if text:
         click.echo(
             click.style(tw.indent(tw.fill(text), '\t'), fg=text_color) + '\n'
