@@ -79,7 +79,7 @@ class TemplateTests(unittest.TestCase):
             result = self.runner.invoke(cli, ['--stdout', '-a', 'foobar'])
             stdout_str = result.output
 
-            self.assertEqual(stdout_str, 'foobar\n')
+            self.assertEqual(stdout_str.strip(), 'foobar')
 
     def test_stdout__contains_no_garbage(self):
         some_name = 'some_name_that_dont_exist'
